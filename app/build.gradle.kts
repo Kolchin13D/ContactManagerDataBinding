@@ -6,8 +6,9 @@ android {
     namespace = "com.example.contactmanagerdatabinding"
     compileSdk = 34
 
-    buildFeatures {
+    buildFeatures{
         dataBinding = true
+        viewBinding = true
     }
 
     defaultConfig {
@@ -44,4 +45,9 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
+
+    //  add room
+    val room_version = "2.6.1"
+    implementation("androidx.room:room-runtime:$room_version")
+    annotationProcessor("androidx.room:room-compiler:$room_version")
 }
