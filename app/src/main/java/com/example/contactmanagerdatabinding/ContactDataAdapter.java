@@ -15,7 +15,6 @@ import java.util.ArrayList;
 
 public class ContactDataAdapter extends RecyclerView.Adapter<ContactDataAdapter.ContactViewHolder> {
     private ArrayList<Contact> contacts;
-
     public ContactDataAdapter(ArrayList<Contact> contacts) {
         this.contacts = contacts;
     }
@@ -24,53 +23,58 @@ public class ContactDataAdapter extends RecyclerView.Adapter<ContactDataAdapter.
     @Override
     public ContactViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 //        View itemView = LayoutInflater.from(parent.getContext()).
-//                inflate(R.layout.contact_item, parent, false);
+//                inflate(R.layout.contact_list_item,parent, false);
 //        return new ContactViewHolder(itemView);
 
-        ContactItemBinding contactItemBinding = DataBindingUtil.inflate(
+        ContactItemBinding contactListItemBinding = DataBindingUtil.inflate(
                 LayoutInflater.from(parent.getContext()),
-                R.layout.contact_item, parent, false
-        );
+                R.layout.contact_item, parent, false);
 
-        return new ContactViewHolder(contactItemBinding);
+        return new ContactViewHolder(contactListItemBinding);
+
     }
 
+
     @Override
-    public void onBindViewHolder(@NonNull ContactViewHolder holder, int position) {
-        Contact currentContact = contacts.get(position);
+    public void onBindViewHolder(@NonNull ContactViewHolder holder, int i) {
+        Contact currentContact = contacts.get(i);
 //        holder.name.setText(currentContact.getName());
-//        holder.phone.setText(currentContact.getPhone());
 //        holder.email.setText(currentContact.getEmail());
 
-        holder.contactItemBinding.setContact(currentContact);
+        holder.contactListItemBinding.setContact(currentContact);
     }
 
     @Override
     public int getItemCount() {
         if (contacts != null){
-            return  contacts.size();
+            return contacts.size();
         }else{
             return 0;
         }
+
     }
 
-    public  void setContacts(ArrayList<Contact> contacts){
+    public void setContacts(ArrayList<Contact> contacts){
         this.contacts = contacts;
         notifyDataSetChanged();
     }
 
+
     class ContactViewHolder extends RecyclerView.ViewHolder{
 
-        private ContactItemBinding contactItemBinding;
-        //private TextView name, phone, email;
+        private ContactItemBinding contactListItemBinding;
 
-        public ContactViewHolder(@NonNull ContactItemBinding contactItemBinding) {
-            super(contactItemBinding.getRoot());
+        //private TextView name, email;
 
-            this.contactItemBinding = contactItemBinding;
-//            this.name = itemView.findViewById(R.id.ContactName);
-//            this.phone = itemView.findViewById(R.id.ContactPhone);
-//            this.email = itemView.findViewById(R.id.ContactEmail);
+        public ContactViewHolder(@NonNull ContactItemBinding contactListItemBinding) {
+            super(contactListItemBinding.getRoot());
+
+            this.contactListItemBinding = contactListItemBinding;
+
+//            this.name = itemView.findViewById(R.id.tvName);
+//            this.email = itemView.findViewById(R.id.tvEmail);
         }
     }
+
+
 }

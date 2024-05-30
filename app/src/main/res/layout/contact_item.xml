@@ -12,12 +12,14 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:layout_margin="8sp">
 
         <TextView
             android:id="@+id/tvContactName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/blue"
             android:hint="Enter name"
             android:text="@={contact.name}"
             android:textColor="@color/black"
@@ -34,6 +36,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:background="@color/white"
             android:hint="Enter phone"
             android:text="@={contact.phone}"
             android:textColor="@color/black"
@@ -48,6 +51,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:background="@color/white"
             android:hint="Enter email"
             android:text="@={contact.email}"
             android:textColor="@color/black"

@@ -66,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
 
         // recycler
         //RecyclerView recyclerView = findViewById(R.id.recyclerView);
+
         RecyclerView recyclerView = activityMainBinding.recyclerView;
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
@@ -100,57 +101,23 @@ public class MainActivity extends AppCompatActivity {
                 DeleteContact(contact);
             }
         }).attachToRecyclerView(recyclerView);
-
-
-//        // FAB
-//        FloatingActionButton FAB = findViewById(R.id.floatingActionButton);
-//        FAB.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(MainActivity.this, AddNewContactActivity.class);
-//                startActivityForResult(intent, 1);
-//            }
-//        });
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == 1 && requestCode == RESULT_OK){
+
+
+        if (requestCode == 1 && resultCode == RESULT_OK){
             String name = data.getStringExtra("NAME");
             String phone = data.getStringExtra("PHONE");
             String email = data.getStringExtra("EMAIL");
 
-            Contact contact = new Contact(name, email, phone, 0);
+            Contact contact = new Contact(name, phone, email,0);
+
             AddNewContact(contact);
         }
-    }
-
-    private void AddNewContact(Contact contact){
-
-
-        ExecutorService executor = Executors.newSingleThreadExecutor();
-        Handler handler = new Handler(Looper.getMainLooper());
-
-        executor.execute(new Runnable() {
-            @Override
-            public void run() {
-                // OnBackground
-                contactAppDataBase.getContactDao().insert(contact);
-                contacts.add(contact);
-
-                // On Post Execution
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        contactDataAdapter.notifyDataSetChanged();
-                    }
-                });
-
-            }
-        });
-
     }
 
     private void DeleteContact(Contact contact) {
@@ -171,7 +138,6 @@ public class MainActivity extends AppCompatActivity {
                         contactDataAdapter.notifyDataSetChanged();
                     }
                 });
-
             }
         });
     }
@@ -193,6 +159,30 @@ public class MainActivity extends AppCompatActivity {
                         contactDataAdapter.setContacts(contacts);
                         contactDataAdapter.notifyDataSetChanged();
 
+                    }
+                });
+            }
+        });
+    }
+
+    private void AddNewContact(Contact contact){
+
+
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        Handler handler = new Handler(Looper.getMainLooper());
+
+        executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                // OnBackground
+                contactAppDataBase.getContactDao().insert(contact);
+                contacts.add(contact);
+
+                // On Post Execution
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        contactDataAdapter.notifyDataSetChanged();
                     }
                 });
 
